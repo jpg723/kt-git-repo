@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Document</title>
+    </head>
+    <body>
+        <div>
+            <input class="itxt" type="text" value="KT">
+            <p class="ptxt">KT Aivle!</p>
+            <button class="txt_btn">Click</button>
+        </div><hr>
+        <p class="ptxt">Javascript</p>
+        <div>
+            <button class="show">show</button>
+            <button class="hide">hide</button>
+        </div><hr>
+        <div>
+            <input class="addr_txt" type="text">
+            <button class="addr_btn">Address</button>
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        console.log('hello js!');
+        var data1 = document.getElementsByClassName('itxt');
+        console.log('data1', data1[0].value);
+
+        var data2 = document.querySelector('.ptxt')
+        console.log('data2', data2.textContent);
+
+        /*
+        var btn = document.querySelector('.txt_btn');
+        btn.addEventListener('click', function(){
+            var data3 = document.querySelector('.itxt');
+            console.log(data3.value);
+            alert(data3.value);
+        });
+        */
+
+        // jQuery
+        $(document).ready(function (){ // html이 모두 준비가 되었을 때 실행
+            $('.txt_btn').on('click', function(){
+                var data4 = $('.itxt').val();
+                console.log(data4);
+                $('.ptxt').text(data4);
+            });
+        });
+
+        $('.show').on('click', function(){
+            $('.shtxt').show();
+        });
+
+        
+        $('.hide').on('click', function(){
+            $('.shtxt').hide();
+        });
+
+        // Ajax :  비동기 통신
+        // 동기: 1번 요청에 대한 응답이 온 다음 2번 요청 실행 가능
+        // 비동기: 1번 요청에 대한 응답이 오기 전에 2번 요청 실행 가능
+        // 즉, 비동기방식은 응답에 대한 결과의 보장이 없음
+
+        $('.addr_btn').on('click', function() {
+            var addr = $('.addr_txt').val();
+            console.log(addr);
+
+            var url = 'https://apis.zigbang.com/v2/search?leaseYn=N&q=' + addr + '&serviceType=원룸';
+            $.getJSON(url, function(response){
+                console.log(response.items);
+            })
+        })
+    </script>
+</html>

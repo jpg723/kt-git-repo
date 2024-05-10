@@ -107,7 +107,7 @@ console.log(data1, data2); // 8 8
 // data1++ : 데이터 대입하고 +1
 var data1 = 5, data2 = 7;
 data1 = data2++;
-console.log(data1); // 7 8
+console.log(data1, data2); // 7 8
 
 // [비교연산자]-------------------------------------------- 
 // 데이터 + 데이터 = 논리값 : 조건 1개
@@ -298,3 +298,56 @@ result = plus(1, 2);
 console.log(result); // 3
 
 //=========================================================================
+// 7. 객체 :  object
+var data = [1, 2, 3, 'A', 'B'];
+console.log(typeof data, data); // object [ 1, 2, 3, 'A', 'B' ]
+
+data.push('C');
+console.log(data); // [ 1, 2, 3, 'A', 'B', 'C' ]
+
+for(var i = 0; i < data.length; i++){
+    console.log(i, data[i]);
+}
+
+// [객체 생성]--------------------------------------------
+// 객체 생성 1
+var data = {name: 'andy', plus: function(n1, n2){return n1 + n2}};
+console.log(typeof data, data); // object { name: 'andy', plus: [Function: plus] }
+console.log(data.name, data['name']); // andy andy
+
+// 객체 생성 2
+function Person(name){
+    this.name = name;
+}
+
+var person = new Person('andy');
+console.log(typeof person, person); // object Person { name: 'andy' }
+
+// [변수 추가, 삭제]--------------------------------------------
+var data = {};
+data.name = 'alice';
+data['age'] = 23;
+console.log(data); // { name: 'alice', age: 23 }
+delete data.age;
+console.log(data); // { name: 'alice' }
+
+// [json object]--------------------------------------------
+// 웹에서 데이터를 주고 받는 용도로 사용되는 데이터 포멧
+// 웹에서는 객체 자체 사용이 불가능
+// 따라서 json의 데이터를 전달할 때 object에서 str으로 바꿔서 전달함
+
+// object > str
+var data = {name: 'peter', age: 29, skills: ['code', 'read']}
+var json_str = JSON.stringify(data);
+console.log(typeof data, typeof json_str); // object string
+console.log(data, json_str);
+
+// str > json object
+var json_obj = JSON.parse(json_str);
+console.log(typeof json_obj); // object
+console.log(json_obj, json_obj.name)
+
+// [웹브라우져 객체]--------------------------------------------
+// window : 전역객체 : 모든 변수와 함수와 객체를 저장하는 객체
+// location : URL 데이터를 저장하는 객체
+// document : 페이지 문서(HTML)에 대한 데이터를 저장하는 객체
