@@ -28,14 +28,14 @@
 - pandas와 sklearn도 numpy로 만들어서 속도가 빠름
 
 */
-//----------------------------------------------------
+//=========================================================================
 
 // 1. 변수 선언
 // 식별자 : 저장공간을 구별하는 문자열
 // 식별자 규칙 : 대소문자, 숫자, _, $ : 가장 앞에 숫자 X : 예약어 사용X
 // 식별자 컨벤션 : camelCase(변수, 함수), PascalCase(모듈)
 
-// [선언 방법]
+// [선언 방법]--------------------------------------------
 // 식별자 1개, 데이터 1개
 var data1 = 10;
 
@@ -47,7 +47,7 @@ var data2 = 20,
 var data4 = data5 = 40;
 
 console.log(data1, data2, data3, data4, data5);
-//----------------------------------------------------
+//=========================================================================
 
 // 2. 데이터타입
 // number, string, boolean, function, object
@@ -61,7 +61,7 @@ var data5 = {key: 'js'};
 console.log(typeof data1, typeof data2, typeof data3);
 console.log(typeof data4, typeof data5);
 
-// [데이터가 없음]
+// [데이터가 없음]--------------------------------------------
 // undefined : 선언은 되었으나 데이터가 할당되지 않은 경우
 // null : 선언은 되었으나 데이터 없음이 할당
 // NaN : Number 데이터 타입에서 undefined
@@ -73,7 +73,7 @@ console.log(typeof data1, data1)
 console.log(typeof data2, data2)
 console.log(typeof data3, data3)
 
-// [데이터 타입의 형 변환]
+// [데이터 타입의 형 변환]--------------------------------------------
 // Number(), String(), Boolean()
 var data1 = '1';
 var data2 = 2;
@@ -83,16 +83,18 @@ console.log(data1 + data2); // 12
 console.log(Number(data1) + data2); // 3
 console.log(data1 + String(data2)) // 12
 
-// [묵시적 형 변환]
+// [묵시적 형 변환]--------------------------------------------
 // 서로 다른 데이터타입을 연산할 때 자동으로 데이터 타입을 변경해주는 것
 var data1 = '1';
 var data2 = 2;
 console.log(typeof data1, typeof (data - 0)); // string number
 console.log(typeof data2, typeof ('' + data2)); // number string
-//----------------------------------------------------
+
+//=========================================================================
 
 // 3. 연산자 : operator
-// [산술연산자] 데이터 + 데이터 = 데이터
+// [산술연산자]--------------------------------------------
+// 데이터 + 데이터 = 데이터
 // +, -, *, /, %, **, ++, --
 var data1 = 11, data2 = 4;
 console.log(data1 / data2, data1 % data2, data2 ** 3); // 2.75, 3, 64
@@ -107,13 +109,15 @@ var data1 = 5, data2 = 7;
 data1 = data2++;
 console.log(data1); // 7 8
 
-// [비교연산자] 데이터 + 데이터 = 논리값 : 조건 1개
+// [비교연산자]-------------------------------------------- 
+// 데이터 + 데이터 = 논리값 : 조건 1개
 // ==(데이터만 비교), !=, >, <, >=, <=, ===(데이터 타입까지 비교), !==
 // ==와 ===
 var data1 = 1, data2 = '1';
 console.log(data1 == data2, data1 === data2); // true false 
 
-// [논리연산자] 논리값(조건1) + 논리값(조건2) = 논리값 : 조건 2개 이상
+// [논리연산자]-------------------------------------------- 
+// 논리값(조건1) + 논리값(조건2) = 논리값 : 조건 2개 이상
 // !(not), &&(and : T && T = T), ||(or : F or F = F)
 console.log(true && false, true || false) // false true
 
@@ -123,31 +127,34 @@ console.log(true && false, true || false) // false true
 // 조건 1 : 예금잔고 >= 인출금액
 var balance = 10000;
 var amount = 6000;
-console.log(balance >= amount);
+console.log(balance >= amount); // true
 
 // 조건 2 : 최대 인출금액 5000원
 var balance = 10000;
-var amount = 6000;
-console.log(balance >= amount, amount <= 5000);
-console.log(balance >= amount && amount <= 5000);
+var amount = 6000; 
+console.log(balance >= amount, amount <= 5000); // true false
+console.log(balance >= amount && amount <= 5000); // false
 
-// [할당연산자] 변수 <산술>= 데이터 : 누적해서 연산
+// [할당연산자]--------------------------------------------
+// 변수 <산술>= 데이터 : 누적해서 연산
 var data1 = 10;
 data1 += 20;
 console.log(datat1) // 30
 
-// [삼항연산자] condition ? true :false
+// [삼항연산자]-------------------------------------------- 
+// condition ? true :false
 var balance = 10000, amount = 6000;
 var msg = balance >= amount ? '인출가능' : '인출불가';
 console.log(msg) // 인출가능
 
-// [실수하기 쉬운 코드]
+// [실수하기 쉬운 코드]--------------------------------------------
 // 부동 소수점 에러
 var data1 = 0.1, data2 = 0.2;
 console.log(data1 + data2 === 0.3); // -> false
 console.log(data1 + data2); // 0.300000000000004
 console.log((Math.round(data1 + data2) * 10) / 10 === 0.3); // 반올림한 다음 비교 -> true
-//----------------------------------------------------
+
+//=========================================================================
 
 // 4. 조건문
 // if, else if, else
@@ -160,18 +167,18 @@ if(balance < amount){
     console.log('인출가능');
 }
 
-//----------------------------------------------------
+//=========================================================================
 
 // 5. 반복문
 // while, for, break, continue
-// [while문]
+// [while문]--------------------------------------------
 var count = 3;
 while(count > 0) {
     count -= 1;
     console.log('js');
 }
 
-// [for문]
+// [for문]--------------------------------------------
 // continue : 실행되면 바복문을 정의하는 코드로 올라가서 코드 실행
 // break : 반복중단
 for(var i = 0; i < 5; i++){
@@ -186,7 +193,8 @@ for(var i = 0; i < 5; i++){
     }
 }
 
-// [실습] 로또 번호 출력 : 1 ~ 45 랜덤한 숫자 6개 출력(문자열), 중복 허용
+// [실습]--------------------------------------------
+// 로또 번호 출력 : 1 ~ 45 랜덤한 숫자 6개 출력(문자열), 중복 허용
 var count = 6, lotto = '';
 
 for(var i = 0; i < count; i++){
@@ -196,7 +204,7 @@ for(var i = 0; i < count; i++){
 
 console.log(lotto);
 
-//----------------------------------------------------
+//=========================================================================
 
 // 6. 함수 : function
 // 중복되는 코드를 묶어서 코드 작성 실행 문법 > 코드 유지 보수 향상
@@ -223,3 +231,70 @@ console.log('javascript')
 
 // 함수호출 : 코드실행
 showLotto(6);
+
+// [함수 선언 방법]--------------------------------------------
+
+// 함수 선언 방법1: 선언식
+// 호이스팅: 함수를 호출하고 선언해서 사용 가능
+function plus1(n1, n2){
+    console.log(n1 + n2);
+}
+plus1(1, 2);
+
+// 함수 선언 방법2: 표현식
+// 함수를 선언하고 사용이 가능
+var plus2 = function(n1, n2){
+    console.log(n1 + n2);
+}
+plus2(2, 3);
+
+// [스코프]--------------------------------------------
+// 함수 안 : 지역영역 : 지역변수 : local
+var data = 10;
+function change(){
+    var data = 20; // var을 선언하면 local 변수
+}
+change();
+console.log(data); // 10
+
+// 함수 밖 : 전역영역 : 전역변수 : global
+var data = 10;
+function change(){
+    data = 20; // var을 선언하지 않으면 global 변수
+}
+change();
+console.log(data); // 20
+
+// [return]--------------------------------------------
+function plus1(n1, n2){
+    console.log('plus1', n1 + n2);
+    return n1 + n2;
+}
+
+function plus2(n1, n2){
+    console.log('plus2', n1 + n2);
+}
+
+result1 = plus1(2, 3);
+result2 = plus2(2, 3);
+console.log(result1, result2);
+
+// [익명함수]--------------------------------------------
+// 선언과 동시에 호출하는 함수
+// 자바스크립트 코드를 웹서비스 사용자가 사용할 수 없도록 하기 위해 사용
+(function plus1(n1, n2){
+    console.log(n1 + n2);
+}(2, 3))
+
+//[defalt parameter 설정]--------------------------------------------
+var plus = function(n1, n2){
+    n2 = n2 || 10; // n2에 데이터 없으면 10대입
+    return n1 + n2;
+}
+result = plus(1);
+console.log(result); // 11
+
+result = plus(1, 2);
+console.log(result); // 3
+
+//=========================================================================
