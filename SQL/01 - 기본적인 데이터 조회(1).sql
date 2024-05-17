@@ -62,7 +62,7 @@ SELECT emp_name, emp_id, gender, dept_id, phone, salary
 -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- 
 
 -- Q) vacation 테이블 모든 데이터 조회
-
+SELECT * FROM vacation;
 
 
 -- Q) unit 테이블 모든 데이터 조회
@@ -147,15 +147,18 @@ SELECT emp_name, emp_id, dept_id, gender, hire_date, salary
 	FROM employee
 	WHERE salary > 7000;
 
--- 2019년 3월 이전에 입사한 직원 정보 조회
+-- 2019년 3월 이전에 입사한 직원 정보 조회(날짜는 무조건 문자열로 표현됨)
 SELECT emp_name, emp_id, dept_id, gender, hire_date, phone
 	FROM employee
 	WHERE hire_date < '2019-03-01';
 
 -- SYS 부서가 아닌 직원 정보 조회
-SELECT emp_name, emp_id, dept_id, gender, hire_date, phone
+SELECT emp_name, emp_id, dept_id, gender, hire_date, phone, salary
 	FROM employee
 	WHERE dept_id != 'SYS';
+
+-- 결과를 전체 선택 -> 마우스 우클릭 후 Copy Row(with names, seperated) -> 엑셀가서 복붙(ctrl-v)
+-- x축 열과 y축 열을 동시 선택(Ctrl 하면서 두 개의 열 선택) -> F11클릭 -> 막대그래프 생성
 
 
 -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
@@ -240,6 +243,9 @@ SELECT emp_name, emp_id, dept_id, hire_date, phone
 
 
 -- Q) SYS 부서 직원 중에서 급여를 6,000 이상 받는 직원 정보 조회
+SELECT *
+	FROM employee
+    WHERE dept_id = 'SYS' AND salary >=6000;
 
 
     

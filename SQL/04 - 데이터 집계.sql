@@ -13,14 +13,15 @@ USE hrdb2024;
 
 /*
 1. 집계 함수: SUM, AVG, MAX, MIN, COUNT
+* 집계함수는 NULL 값을 무시
 */
 
--- 근무 중 직원 급여 총액 조회
+-- 근무 중 직원 급여 총액 조회(AS tot_salary로 열 이름 제공)
 SELECT SUM(salary) AS tot_salary
 	FROM employee
 	WHERE retire_date IS NULL;
 
--- 근무 중 직원 수
+-- 근무 중 직원 수(COUNT는 NULL행까지 합쳐서 조회)
 SELECT COUNT(*) AS emp_count
 	FROM employee
 	WHERE retire_date IS NULL;
@@ -31,7 +32,6 @@ SELECT MAX(salary) AS max_salary,
 	   MAX(salary) - MIN(salary) AS diff_salary
 	FROM employee
 	WHERE retire_date IS NULL;
-
 
 -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * --
 
@@ -54,7 +54,7 @@ SELECT MAX(salary) AS max_salary,
 2. 집계 함수와 NULL 값
 */
 
--- 근무중인 직원의 급여 평균 조회
+-- 근무중인 직원의 급여 평균 조회(NULL값을 제외하고 평균 계산)
 SELECT AVG(salary) AS avg_salary
 	FROM employee
 	WHERE retire_date IS NULL;
@@ -128,12 +128,13 @@ SELECT dept_id,
 */
 
 -- 근무중인 직원이 3명 이상인 부서별 근무중인 직원 수 조회
-SELECT dept_id, COUNT(*) AS emp_count
-	FROM employee
-	WHERE retire_date IS NULL
-	GROUP BY dept_id
-	HAVING COUNT(*) >= 3
-	ORDER BY emp_count DESC;
+-- * SELECT 뒤에 도는 구문은 ORDER BY 밖에 없음
+SELECT dept_id, COUNT(*) AS emp_count -- 5
+	FROM employee -- 1
+	WHERE retire_date IS NULL -- 2
+	GROUP BY dept_id -- 3
+	HAVING COUNT(*) >= 3 -- 4
+	ORDER BY emp_count DESC; -- 6
 
 -- HAVING 절에 열 별칭 사용 가능(권고하지 않음)
 SELECT dept_id, COUNT(*) AS emp_count
@@ -143,7 +144,6 @@ SELECT dept_id, COUNT(*) AS emp_count
 	HAVING emp_count >= 3
 	ORDER BY emp_count DESC;
 
-    
 -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- * -- 
 
 -- Q) 2020년 휴가일수 합이 5가 넘는 직원의 사번과 휴가일수 합 조회

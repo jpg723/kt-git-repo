@@ -38,6 +38,37 @@ SELECT e.emp_id, e.emp_name, e.dept_id, d.dept_name, e.phone, e.email
     INNER JOIN department AS d ON e.dept_id = d.dept_id
 	WHERE e.retire_date IS NULL;
 
+SELECT v.emp_id, e.emp_name, e.gender, e.hire_date, v.begin_date, 
+		v.reason, v.duration
+	FROM vacation AS v
+    JOIN employee AS e ON v.emp_id = e.emp_id
+    WHERE e.retire_date IS NULL
+    ORDER BY v.emp_id ASC, v.begin_date DESC;
+    
+-- INNER JOIN: 매핑 되는 행만 출력    
+SELECT d.dept_id, d.dept_name, u.unit_name
+	FROM department AS d
+    INNER JOIN unit AS u ON d.unit_id = u.unit_id;
+
+-- OUTER JOIN  
+SELECT d.dept_id, d.dept_name, u.unit_name
+	FROM department AS d
+    LEFT OUTER JOIN unit AS u ON d.unit_id = u.unit_id;
+
+-- INNER JOIN = JOIN
+-- LEFT OUTER JOIN = LEFT JOIN
+-- RIGHT OUTER JOIN = RIGHT JOIN
+-- FULL OUTER JOIN = FULL JOIN(MySQL만 불가능)
+-- CROSS JOIN
+
+-- 마지막 조인
+-- (부모는 자식의 행의 수만큼 찾아가므로 행의 수가 많아짐)
+-- 근무 중이 모든 직원들의 휴가 근황
+SELECT e.emp_id, e.emp_name, e.dept_id, e.hire_date,
+		v.begin_date, v.reason, v.duration
+	FROM employee AS e
+    LEFT OUTER JOIN vacation AS v ON e.emp_id = v.emp_id
+    WHERE retire_date IS NULL;
 
 /*
 2. INNER JOIN
@@ -139,6 +170,7 @@ SELECT d.dept_id, d.dept_name, d.unit_id, u.unit_name
 
 /*
 5. 하위 쿼리
+- 쿼리 안에 쿼리가 있는 형태
 */
 
 -- 가장 급여를 많이 받는 직원
@@ -146,24 +178,46 @@ SELECT emp_id, emp_name, dept_id, phone, email, salary
 	FROM employee
 	WHERE salary = (SELECT MAX(salary) FROM employee);
 
+-- 홍길동과 같은 부서에 근무하는 직원 정보
+SELECT emp_id, emp_name, dept_id, phone, email, salary
+	FROM employee
+	WHERE dept_id = (SELECT dept_id FROM employee WHERE emp_id = 'S0001');
+    
 -- 가장 먼저 입사한 직원
 SELECT emp_id, emp_name, dept_id, phone, email, salary
 	FROM employee
 	WHERE hire_date = (SELECT MIN(hire_date) FROM employee);
 
 -- 휴가를 간 적이 있는 정보시스템 직원 #1
+-- DISTINCT: 중복 생략
 SELECT emp_id, emp_name, dept_id, phone, email
 	FROM employee
 	WHERE dept_id = 'SYS'
-	AND emp_id IN (SELECT emp_id FROM vacation);
+	AND emp_id IN (SELECT DISTINCT emp_id FROM vacation);
 
--- 휴가를 간 적이 있는 정보시스템 직원 #2
+-- 휴가를 간 적이 있는 정보시스템 직원 #2(중요)
+-- 상관하위 쿼리: 괄호 밖과 안 쿼리가 상관이 있어 단일로 실행이 안 되는 쿼리
+-- -> 괄호 밖 쿼리가 먼저 실행되고, 괄호 안 쿼리가 실행됨
 SELECT emp_id, emp_name, dept_id, phone, email
 	FROM employee AS e
 	WHERE dept_id = 'SYS'
 	AND EXISTS (SELECT * 
                     FROM vacation
                     WHERE emp_id = e.emp_id);
+                    
+-- NOT BETWEEN
+-- NOT IN
+-- NOT LIKE
+-- IS NOT NULL
+-- NOT EXISTS
+
+-- JOIN 없이 dept_name 가져오기
+SELECT emp_id, emp_name, dept_id,
+	(SELECT dept_name FROM department WHERE dept_id = e.dept_id)dept_name,
+    hire_date,
+    (SELECT SUM(duration) FROM vacation WHERE emp_id = e.emp_id) AS tot_duration
+	FROM employee AS e
+    WHERE retire_date IS NULL;
     
 -- 휴가를 간 적이 없는 정보시스템 직원 #1
 SELECT emp_id, emp_name, dept_id, phone, email

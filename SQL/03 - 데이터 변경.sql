@@ -7,6 +7,9 @@
 -- 데이터베이스 연결
 USE hrdb2024;
 
+-- DML(Data Manipulation Language): INSERT, UPDATE, DELETE
+-- DDL(Data Definition Language): CREATE, ALTER, DROP
+-- DCL(Data Control Language): GRANT, REVOKE, DENY
 
 /*
 1. INSERT
