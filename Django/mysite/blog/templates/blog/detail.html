@@ -1,4 +1,33 @@
-<h1>{{post.title}}</h1>
+<!--상속 받을 때 사용하는 태그-->
+{% extends "layout.html" %}
 
-제목 : {{post.title}}<br>
-내용 : {{post.body}}<br>
+<!--상속 받았으면 block안에서 작업해야 함-->
+{% block title %}
+    Post 상세보기
+{% endblock title %}
+
+{% block content %}
+    <h1>{{post.title}}</h1>
+    제목 : {{post.title}}<br>
+    내용 : {{post.body}}<br>
+
+    <hr>
+    <p>댓글</p>
+    {% for comment in  comment_all %}
+        <p>{{comment.message}} / {{comment.author}} / {{comment.update}}</p>
+    {% empty %}
+        댓글이 존재하지 않습니다.
+    {% endfor %}
+
+    <hr>
+    <p>태그</p>
+    {% for tag in tag_list %}
+        #<a href="/blog/tag/{{tag.id}}">{{tag.name}}</a>
+    {% endfor %}
+
+    <hr>
+    <a href="{% url 'blog:list' %}">[목록보기]</a>
+    <a href="{% url 'blog:update' post.id %}">[글 수정]</a>
+    <a href="{% url 'blog:delete' post.id %}">[글 삭제]</a>
+
+{% endblock content %}
