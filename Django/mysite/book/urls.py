@@ -13,5 +13,5 @@ urlpatterns = [
     path('create/', CreateView.as_view(model=Book, fields='__all__'), name='create'),
     path('update/<pk>', UpdateView.as_view(model=Book, fields='__all__'), name='update'),
     path('delete/<pk>/', DeleteView.as_view(model=Book,
-success_url=reverse_lazy('book:list')), name='delete'),
+            success_url=reverse_lazy('book:list')), name='delete'),
 ]
