@@ -6,7 +6,8 @@ class Post(models.Model):
     title = models.CharField(max_length=250)
     body = models.TextField()
     tag = models.ManyToManyField('Tag', null=True, blank=True)
-
+    ip = models.GenericIPAddressField(null=True) # commit 지연
+    
     def __str__(self):
         return self.title
     

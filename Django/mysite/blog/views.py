@@ -79,7 +79,11 @@ def post_create(request):
             print("===>", form.cleaned_data)
             # 입력된 데이터를 db에 저장
             #post = Post.objects.create(**form.cleaned_data)
-            post = form.save()
+            
+            # ip주소 저장하는 방법(commit지연)
+            post = form.save(commit=False) # 기본값이 True
+            post.ip = request.META['REMOTE_ADDR']
+            post.save()
             
             return redirect(post)
     else:
