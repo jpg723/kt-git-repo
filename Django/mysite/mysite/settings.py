@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "blog",
     # "music",
     "book",
-    "gallery"
+    "gallery",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = "/accounts/login"
+# 로그인, 로그아웃 후 이동할 페이지 지정
+LOGIN_REDIRECT_URL = "/blog/"
+LOGTOUT_REDIRECT_URL = "/blog/"
+
+#smtp.EmailBackend – Naver SMTP 연동
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.naver.com'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = "이메일"
+# EMAIL_HOST_PASSWORD = "비밀번호"
+# EMAIL_USE_SSL = True
+# 이메일이 잘 가는지 콘솔창으로 확인
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
